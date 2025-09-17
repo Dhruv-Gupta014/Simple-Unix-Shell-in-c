@@ -1,0 +1,68 @@
+Contributions
+
+Dhruv Gupta (2024190)
+
+Implemented the shell_loop()
+Wrote read_user_input() and basic input handling.
+Wrote launch() and initial part of create_process_and_run() structure.
+Debugging and testing of commands (ls, echo, wc, grep, etc.).
+Integrated signal(SIGINT, sigint_handler) for printing of history on Ctrl+C.
+
+Arjun Goel(2024105)
+
+Implemented split_command() (argument parsing) using strtok() (string tokenizer)
+Implemented split_pipes() and pipe handling logic (took reference from Tutorial 5).
+Wrote error handling for unknown commands.
+Final code cleanup, formatting, and preparation for submission.
+Wrote child process creation with fork(), and execution using execvp().
+
+Description
+
+The Simple Shell program is a UNIX shell implemented in C, following the guidelines from Assignment 2. It supports executing single commands, piped commands, built-in commands, and maintains a session history.
+
+simple_shell.c: Contains the full code implementation.
+fib.c and helloworld.c are the executables of a Fibonacci number calculator and hello world programs respectively.
+
+shell_loop()
+
+Displays a prompt (iiitd@possum:~$). (just like lecture notes) 
+Continuously reads user input and passes it to launch().
+Exits when the user types exit or on Ctrl+C.
+
+read_user_input()
+Reads a line of input using fgets().
+Removes newline character.
+Returns the input string for further parsing.
+
+split_command()
+
+Splits a command string into arguments (tokens) separated by spaces/tabs.
+
+split_pipes()
+
+Splits a command line into multiple commands if pipes (|) are present.
+Returns the number of separate commands in the pipeline.
+
+The core logic is in create_process_and_run()
+
+Core function for process handling.
+Iterates through commands (single or piped).
+Uses fork() to create child processes.
+Sets up redirection with dup2() when pipes are used.
+Executes the command with execvp().
+Logs each command into history with PID, start time, and end time.
+
+Built-in commands
+
+exit: Terminates the shell.
+history: Prints all previous commands executed during the session.
+
+sigint_handler()
+
+Handles Ctrl+C (SIGINT).
+Prints a detailed session history including command name, PID, start time, and duration.
+Exits gracefully after printing history.
+
+Note: For completing our assignment we took refrences of code from lecture 6, 7 and 8 along with tutorial 5 for understanding of pipes logic. We also took some refrence from Ai tools for just understanding the implementation of sigint_handler. The one which handles termination using Ctrl C.
+
+GitHub Repo: https://github.com/Dhruv-Gupta014/Simple-Unix-Shell-in-c
